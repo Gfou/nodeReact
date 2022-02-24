@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import "../styles/Cart.css"
 
 function Cart({ cart, setCart }) {
@@ -6,6 +6,10 @@ function Cart({ cart, setCart }) {
     const total = cart.reduce(
         (acc, plantType) => acc + plantType.amount * plantType.price, 0
     )
+
+    useEffect(() => {
+        document.title = `LMJ: ${total}€ d'achats`
+    }, [total])
 
     return isOpen ? (
         <div className='lmj-cart'>
@@ -22,7 +26,7 @@ function Cart({ cart, setCart }) {
                 </div>
             )}
             <h3>Total : {total}€</h3>
-            <button onClick={() => setCart(0)}>Vider le panier</button>
+            <button onClick={() => setCart([])}>Vider le panier</button>
         </div>
     ) : (
         <div className='lmj-cart-closed'>
